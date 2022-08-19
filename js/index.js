@@ -17,15 +17,3 @@ boton.addEventListener('click',(e)=> {
     }
 
 });
-
-/*const email = document.getElementById('email');
-const pass = document.getElementById('pass');*/
-
-
-
-/*if (document.form.email.value !=='' && document.form.pass.value !== '') {
-    window.location.replace("home.html");
-} else {
-    window.location.replace("home.html");
-}
-*/
