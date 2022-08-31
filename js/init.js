@@ -39,3 +39,13 @@ let getJSONData = function(url){
         return result;
     });
 }
+
+//Estructura para mostrar el id del usuario en home
+document.addEventListener('DOMContentLoaded', ()=>{
+  const userNameNav = document.getElementById('userName');
+  const getKeyName = localStorage.getItem('userName');
+
+  if (userNameNav !== null && getKeyName !== null){ // condicional para evitar problemas.
+      userNameNav.innerHTML = `<a class="nav-link" href="">${getKeyName}</a>`;
+  }
+})

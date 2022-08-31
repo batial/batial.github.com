@@ -18,12 +18,12 @@ function getProducts(product) {
     `;
 }
 document.addEventListener('DOMContentLoaded',async ()=>{
+    const catID = localStorage.getItem('catID'); //trae el id seleccionado en categorias
     const productList = document.getElementById('product-list');
-    const carList101 = "https://japceibal.github.io/emercado-api/cats_products/101.json";
-
-    const PRODUCT = await getJSONData(carList101);
+    const productURL = `https://japceibal.github.io/emercado-api/cats_products/${catID}.json`;
+    const PRODUCTS = await getJSONData(productURL);
     
-    PRODUCT.data.products.forEach(element => {
+    PRODUCTS.data.products.forEach(element => {
         productList.innerHTML += getProducts(element)
     });
 })
