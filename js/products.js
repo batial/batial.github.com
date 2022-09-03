@@ -1,6 +1,16 @@
+//variables necesarias
+const ORDER_ASC_BY_PRICE = "sortDown";
+const ORDER_DESC_BY_PRICE = "sortUp";
+const ORDER_BY_PROD_SOLDCOUNT = "Rel";
+let currentProductArray = [];
+let currentSortCriteria = undefined;
+let minCount = undefined;
+let maxCount = undefined;
+
+//estructura de productos
 function getProducts(product) {
     return `
-    <div class="card mb-3">
+    <div class="card mb-3 article" name="${product.name}">
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="${product.image}" class="img-fluid rounded-start" alt="...">
@@ -17,15 +27,6 @@ function getProducts(product) {
     </div>
     `;
 }
-
-//variables necesarias
-const ORDER_ASC_BY_PRICE = "sortDown";
-const ORDER_DESC_BY_PRICE = "sortUp";
-const ORDER_BY_PROD_SOLDCOUNT = "Rel";
-let currentProductArray = [];
-let currentSortCriteria = undefined;
-let minCount = undefined;
-let maxCount = undefined;
 
 //funcionalidad de filtro según el boton.
 function sortProducts(criteria, array){
@@ -139,4 +140,22 @@ document.addEventListener("DOMContentLoaded", async function(e){
 
         showProductList();
     });
+
+    //Funcionalidad buscador - Desafiante 2
+    document.addEventListener('keyup',(e)=>{
+
+        if (e.target.matches('#search')){
+
+            console.log(e.target.value);
+            document.querySelectorAll('.article').forEach(element=>{
+                if (element.textContent.toLocaleLowerCase().includes(e.target.value.toLowerCase())){
+                    element.classList.remove('visible')
+                } else {
+                    element.classList.add('visible');
+                }
+            });
+        }
+        
+
+    })
 });

@@ -46,6 +46,6 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const getKeyName = localStorage.getItem('userName');
 
   if (userNameNav !== null && getKeyName !== null){ // condicional para evitar problemas.
-      userNameNav.innerHTML = `<a class="nav-link" href="">${getKeyName}</a>`;
+      userNameNav.innerHTML = `<a class="nav-link" href="my-profile.html">${getKeyName}</a>`;
   }
 })
