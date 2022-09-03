@@ -10,6 +10,7 @@
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"> <!--Iconos de boostrap-->
 </head>
 
 <body>
@@ -40,8 +41,41 @@
   <main class="p-3 container">
     <div id="product-container">
       <div class="row">
-        <div class="col-12 center" id="product-list"> <!-- Desarrollo de la funcionalidad del listado -->
-
+        <div class="col text-end"> <!-- Botones de filtrado -->
+          <div class="btn-group btn-group-toggle mb-4" data-bs-toggle="buttons">
+            <input type="radio" class="btn-check" name="options" id="sortCheap">
+            <label class="btn btn-light" for="sortCheap"><i class="bi bi-sort-down">$</i></label>
+            <input type="radio" class="btn-check" name="options" id="sortExpensive">
+            <label class="btn btn-light" for="sortExpensive"><i class="bi bi-sort-up">$</i></label>
+            <input type="radio" class="btn-check" name="options" id="sortByPrice" checked>
+            <label class="btn btn-light" for="sortByPrice"><i class="bi bi-sort-down"></i>Rel</label>
+          </div>
+        </div>
+      </div>
+      <div class="row"> <!-- Filtrado según cantidad -->
+        <div class="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
+          <div class="row container p-0 m-0">
+            <div class="col">
+              <p class="font-weight-normal text-end my-2">Precio</p>
+            </div>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
+            </div>
+            <div class="col">
+              <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
+            </div>
+            <div class="col-3 p-0">
+              <div class="btn-group" role="group">
+                <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
+                <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 center" id="product-list"> <!-- Listrado de productos -->
+          
         </div>
       </div>
     </div> 

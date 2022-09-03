@@ -188,13 +188,3 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
-
-/* a partir de esta linea, realicé modificaciones en el css*/
-
-#login {
-  display: flex;
-}
-
-.bloque2{
-  height: 250px;
-}

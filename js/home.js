@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
+    //le asigna el valor de la catID según la selección
     document.getElementById("autos").addEventListener("click", function() {
         localStorage.setItem("catID", 101);
         window.location = "products.html"

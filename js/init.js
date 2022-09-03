@@ -40,7 +40,7 @@ let getJSONData = function(url){
     });
 }
 
-//Estructura para mostrar el id del usuario en home
+//Estructura para mostrar el id del usuario en el nav.
 document.addEventListener('DOMContentLoaded', ()=>{
   const userNameNav = document.getElementById('userName');
   const getKeyName = localStorage.getItem('userName');
