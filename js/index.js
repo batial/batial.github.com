@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded",()=>{
     const email = document.getElementById('email');
     const pass = document.getElementById('pass');
 
-    if (boton !== null){ // condicional para evitar que se siga cargando el boton en el home <--
+    if (boton !== null){ // condicional para evitar que se siga cargando el boton fuera del index.html <--
         boton.addEventListener('click',async (e)=> {
             e.preventDefault();
             const Data = {

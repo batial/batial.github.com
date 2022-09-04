@@ -68,20 +68,12 @@ function showProductList(){
     });
 }
 
-function sortAndShowProducts(sortCriteria, productArray){
-    currentSortCriteria = sortCriteria;
-
-    if(productArray != undefined){
-        currentProductArray = productArray;
-    }
-
-    currentProductArray = sortProducts(currentSortCriteria, currentProductArray); //array con productos
-
-    //Muestro las categorías ordenadas
+function sortAndShowProducts(sortCriteria){
+    currentProductArray = sortProducts(sortCriteria, currentProductArray);
     showProductList();
 }
 
-//Al cargar el dom...
+//AL CARGAR EL DOM ...
 document.addEventListener("DOMContentLoaded", async function(e){
 
     const catID = localStorage.getItem('catID'); //captura el id seleccionado en categorias
@@ -145,8 +137,6 @@ document.addEventListener("DOMContentLoaded", async function(e){
     document.addEventListener('keyup',(e)=>{
 
         if (e.target.matches('#search')){
-
-            console.log(e.target.value);
             document.querySelectorAll('.article').forEach(element=>{
                 if (element.textContent.toLocaleLowerCase().includes(e.target.value.toLowerCase())){
                     element.classList.remove('visible')
