@@ -3,7 +3,6 @@ const ORDER_ASC_BY_PRICE = "sortDown";
 const ORDER_DESC_BY_PRICE = "sortUp";
 const ORDER_BY_PROD_SOLDCOUNT = "Rel";
 let currentProductArray = [];
-let currentSortCriteria = undefined;
 let minCount = undefined;
 let maxCount = undefined;
 
@@ -68,17 +67,17 @@ function showProductList(){
     });
 }
 
+//se lanza cuando apretamos un boton de filtrado...
 function sortAndShowProducts(sortCriteria){
     currentProductArray = sortProducts(sortCriteria, currentProductArray);
     showProductList();
 }
 
 //AL CARGAR EL DOM ...
-document.addEventListener("DOMContentLoaded", async function(e){
+document.addEventListener("DOMContentLoaded", async function(){
 
     const catID = localStorage.getItem('catID'); //captura el id seleccionado en categorias
-    const productURL = PRODUCTS_URL+catID+EXT_TYPE;
-    const PRODUCTS = await getJSONData(productURL); // fetch a productos
+    const PRODUCTS = await getJSONData(PRODUCTS_URL+catID+EXT_TYPE); // fetch a productos
     
     currentProductArray = PRODUCTS.data.products; //productos desde url
     showProductList();
@@ -111,7 +110,7 @@ document.addEventListener("DOMContentLoaded", async function(e){
         showProductList();
     });
 
-    //funcionalidad filtrado según input
+    //Corroborando que los inputs del filtrado sean correctos.
     document.getElementById("rangeFilterCount").addEventListener("click", function(){
         minCount = document.getElementById("rangeFilterCountMin").value;
         maxCount = document.getElementById("rangeFilterCountMax").value;
