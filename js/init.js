@@ -49,3 +49,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
       userNameNav.innerHTML = `<a class="nav-link" href="my-profile.html">${getKeyName}</a>`;
   }
 })
+
+//selecciona producto y guarda su id
+function setProductID(id) {
+  localStorage.setItem("productID", id);
+  window.location = "product-info.html";
+}

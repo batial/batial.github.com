@@ -7,9 +7,9 @@ let minCount = undefined;
 let maxCount = undefined;
 
 //estructura de productos
-function getProducts(product) {
+function getHTMLProducts(product) {
     return `
-    <div class="card mb-3 article" name="${product.name}">
+    <div class="card mb-3 article" name="${product.name}" onclick="setProductID(${product.id})">
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="${product.image}" class="img-fluid rounded-start" alt="...">
@@ -61,7 +61,7 @@ function showProductList(){
         if (((minCount == undefined) || ( parseInt(element.cost) >= minCount)) &&
             ((maxCount == undefined) || ( parseInt(element.cost) <= maxCount))){
 
-            htmlContentToAppend += getProducts(element);
+            htmlContentToAppend += getHTMLProducts(element);
         }
         document.getElementById("product-list").innerHTML = htmlContentToAppend;
     });
@@ -144,7 +144,5 @@ document.addEventListener("DOMContentLoaded", async function(){
                 }
             });
         }
-        
-
     })
 });
