@@ -43,7 +43,7 @@ let getJSONData = function(url){
 //Estructura para mostrar el id del usuario en el nav.
 document.addEventListener('DOMContentLoaded', ()=>{
   const userNameNav = document.getElementById('userName');
-  const getKeyName = localStorage.getItem('userName');
+  const getKeyName = localStorage.getItem('userEmail');
 
   if (userNameNav !== null && getKeyName !== null){ // condicional para evitar problemas.
       userNameNav.innerHTML = `<a class="nav-link" href="my-profile.html">${getKeyName}</a>`;

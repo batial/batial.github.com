@@ -1,22 +1,25 @@
+//Array con comentarios del usuario
+var commentsArry = [];
+
 //escructura general del producto
 function getHTMLInfo(product){
     return `
-    <div class="card">
+    <div class="card mt-3">
         <div class="row g-0">
             <div class="col-md-6">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="${product.data.images[0]}" class="d-block w-100" alt="...">
+                    <img src="${product.images[0]}" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="${product.data.images[1]}" class="d-block w-100" alt="...">
+                    <img src="${product.images[1]}" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="${product.data.images[2]}" class="d-block w-100" alt="...">
+                    <img src="${product.images[2]}" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="${product.data.images[3]}" class="d-block w-100" alt="...">
+                    <img src="${product.images[3]}" class="d-block w-100" alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -31,11 +34,11 @@ function getHTMLInfo(product){
             </div>
             <div class="col-md-6">
                 <div class="card-body d-grid">
-                    <h2 class="card-title">${product.data.name}</h5>
-                    <h3 class="card-text">Precio: ${product.data.currency} ${product.data.cost}</h3><br>
+                    <h2 class="card-title">${product.name}</h5>
+                    <h3 class="card-text">Precio: ${product.currency} ${product.cost}</h3><br>
                     <h3 class="card-text">Descripción:</h3>
-                    <h4 class="card-text">${product.data.description}</h4> <br>
-                    <h4 class="card-text text-muted">${product.data.soldCount} vendidos</h4> <br>
+                    <h4 class="card-text">${product.description}</h4> <br>
+                    <h4 class="card-text text-muted">${product.soldCount} vendidos</h4> <br>
                     <a href="https://www.youtube.com/watch?v=DLzxrzFCyOs&ab_channel=AllKindsOfStuff" class="btn btn-primary">Comprar</a>
                 </div>
             </div>
@@ -46,23 +49,24 @@ function getHTMLInfo(product){
             <div class="row">
                 <div class="col-sm-3">
                     <div class="card">
-                        <div class="card-body btn" onclick="setProductID(${product.data.relatedProducts[0].id})">
-                            <h5 class="card-title">${product.data.relatedProducts[0].name}</h5>
-                            <img class="w-100 p-0" src="${product.data.relatedProducts[0].image}">
+                        <div class="card-body btn" onclick="setProductID(${product.relatedProducts[0].id})">
+                            <h5 class="card-title">${product.relatedProducts[0].name}</h5>
+                            <img class="w-100 p-0" src="${product.relatedProducts[0].image}">
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="card">
-                        <div class="card-body btn" onclick="setProductID(${product.data.relatedProducts[1].id})">
-                            <h5 class="card-title">${product.data.relatedProducts[1].name}</h5>
-                            <img class="w-100 p-0" src="${product.data.relatedProducts[1].image}">
+                        <div class="card-body btn" onclick="setProductID(${product.relatedProducts[1].id})">
+                            <h5 class="card-title">${product.relatedProducts[1].name}</h5>
+                            <img class="w-100 p-0" src="${product.relatedProducts[1].image}">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <h3 class="card-title mt-4">Comentarios</h3>
     `
 }
 
@@ -83,10 +87,10 @@ function getStarsBeta(n){
 
 //estructura para los comments
 function getHTMLComments(items){
-    let htmlContentToAppend = '<h3 class="card-title mt-4">Comentarios</h3>'
-    items.data.forEach(element => {
+    let htmlContentToAppend = ''
+    items.forEach(element => {
         htmlContentToAppend +=  `
-        <div class="col" style="width: 30rem;">
+        <div class="col" style="width: 40rem;">
             <div class="card-body">
                 <h4 class="d-flex justify-content-between">${element.user} <span class="text-muted">${element.dateTime}</span></h4>
                 <h5>${getStarsBeta(element.score)}</h5>
@@ -98,8 +102,22 @@ function getHTMLComments(items){
     return htmlContentToAppend;
 }
 
-function setComment(key){
+//trae comentarios guardados en el localSorage - DESIAFIATE 3
+function getNewComments(){
+    let newData = localStorage.getItem('newComments');
+    commentsArry = JSON.parse(newData);
+}
 
+//muestra la hora al ejecutarse - DESIAFIATE 3
+function getHour(){
+    let now = new Date ();
+    let hour = now.getHours();
+    let min = now.getMinutes();
+    let sec = now.getSeconds();
+    let day = now.getDay();
+    let mont = now.getMonth();
+    let year = now.getFullYear();
+    return `${year}-${mont}-${day} ${hour}:${min}:${sec}`;
 }
 
 document.addEventListener('DOMContentLoaded',async ()=>{
@@ -111,15 +129,26 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     let productID = localStorage.getItem('productID');
     const DATAinfo = await getJSONData(PRODUCT_INFO_URL+productID+EXT_TYPE);
     const DATAcomments = await getJSONData(PRODUCT_INFO_COMMENTS_URL+productID+EXT_TYPE);
-    infoContainer.innerHTML = getHTMLInfo(DATAinfo);
-    infoContainer.innerHTML += getHTMLComments(DATAcomments);
+    infoContainer.innerHTML = getHTMLInfo(DATAinfo.data);
+    infoContainer.innerHTML += getHTMLComments(DATAcomments.data);
 
-    console.log(DATAinfo);
-    console.log(DATAcomments);
-
+    //si hay comentarios guardados, los trae - DESIAFIATE 3
+    if (localStorage.getItem('newComments')){
+        getNewComments();
+        infoContainer.innerHTML += getHTMLComments(commentsArry);
+    }
+    
+    //guarda tus comentarios en el localStorage
     submitComment.addEventListener('click',()=>{
-        console.log(inputComment.value);
-        console.log(inputScore.value);
+        let newComments= {
+            dateTime: getHour(),
+            user: localStorage.getItem('userEmail'),
+            score: inputScore.value,
+            description: inputComment.value
+        }
+        commentsArry.push(newComments);
+        localStorage.setItem('newComments',JSON.stringify(commentsArry));
+        console.log(commentsArry);
+
     })
 });
-

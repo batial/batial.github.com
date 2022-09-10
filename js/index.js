@@ -15,8 +15,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             } else {
                 alert('Por favor, asegurese de completar las casillas correctamente.')
             }
-            localStorage.setItem('userName',Data.email)
+            localStorage.setItem('userEmail',Data.email);
         });
     }
-    
 });
