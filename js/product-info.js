@@ -4,7 +4,7 @@ var commentsArry = [];
 //escructura general del producto
 function getHTMLInfo(product){
     return `
-    <div class="card mt-3">
+    <div class="card mt-3 mb-3">
         <div class="row g-0">
             <div class="col-md-6">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -43,30 +43,30 @@ function getHTMLInfo(product){
                 </div>
             </div>
         </div>
-        <br>
-        <div class="card">
-            <h4 card-text>Productos relacionados: </h4>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="card">
-                        <div class="card-body btn" onclick="setProductID(${product.relatedProducts[0].id})">
-                            <h5 class="card-title">${product.relatedProducts[0].name}</h5>
-                            <img class="w-100 p-0" src="${product.relatedProducts[0].image}">
-                        </div>
-                    </div>
+    </div>
+    `
+}
+
+function getRelatedProdcuts(product){
+    return `
+    <div class="d-flex">
+        <div class="col-sm-5">
+            <div class="card">
+                <div class="card-body btn" onclick="setProductID(${product.relatedProducts[0].id})">
+                    <h5 class="card-title">${product.relatedProducts[0].name}</h5>
+                    <img class="w-100 p-0" src="${product.relatedProducts[0].image}">
                 </div>
-                <div class="col-sm-3">
-                    <div class="card">
-                        <div class="card-body btn" onclick="setProductID(${product.relatedProducts[1].id})">
-                            <h5 class="card-title">${product.relatedProducts[1].name}</h5>
-                            <img class="w-100 p-0" src="${product.relatedProducts[1].image}">
-                        </div>
-                    </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card">
+                <div class="card-body btn" onclick="setProductID(${product.relatedProducts[1].id})">
+                    <h5 class="card-title">${product.relatedProducts[1].name}</h5>
+                    <img class="w-100 p-0" src="${product.relatedProducts[1].image}">
                 </div>
             </div>
         </div>
     </div>
-    <h3 class="card-title mt-4">Comentarios</h3>
     `
 }
 
@@ -90,7 +90,7 @@ function getHTMLComments(items){
     let htmlContentToAppend = ''
     items.forEach(element => {
         htmlContentToAppend +=  `
-        <div class="col" style="width: 40rem;">
+        <div class="col">
             <div class="card-body">
                 <h4 class="d-flex justify-content-between">${element.user} <span class="text-muted">${element.dateTime}</span></h4>
                 <h5>${getStarsBeta(element.score)}</h5>
@@ -125,17 +125,20 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     const submitComment = document.getElementById('sendComment');
     const inputComment = document.getElementById('setComment');
     const inputScore = document.getElementById('score');
+    const additionalCont = document.getElementById('additional-content');
+    const commentCont = document.getElementById('comments-container');
 
     let productID = localStorage.getItem('productID');
     const DATAinfo = await getJSONData(PRODUCT_INFO_URL+productID+EXT_TYPE);
     const DATAcomments = await getJSONData(PRODUCT_INFO_COMMENTS_URL+productID+EXT_TYPE);
     infoContainer.innerHTML = getHTMLInfo(DATAinfo.data);
-    infoContainer.innerHTML += getHTMLComments(DATAcomments.data);
+    commentCont.innerHTML += getHTMLComments(DATAcomments.data);
+    additionalCont.innerHTML += getRelatedProdcuts(DATAinfo.data);
 
     //si hay comentarios guardados, los trae - DESIAFIATE 3
     if (localStorage.getItem('newComments')){
         getNewComments();
-        infoContainer.innerHTML += getHTMLComments(commentsArry);
+        commentCont.innerHTML += getHTMLComments(commentsArry);
     }
     
     //guarda tus comentarios en el localStorage
@@ -149,6 +152,5 @@ document.addEventListener('DOMContentLoaded',async ()=>{
         commentsArry.push(newComments);
         localStorage.setItem('newComments',JSON.stringify(commentsArry));
         console.log(commentsArry);
-
     })
 });
