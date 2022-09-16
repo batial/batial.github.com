@@ -1,5 +1,5 @@
-//Array con comentarios del usuario
-var commentsArry = [];
+var visibleCommentsArry = []; //array con comentarios con igualID
+var allUserComments = []; //array con comentarios de todos los productos
 
 //escructura general del producto
 function getHTMLInfo(product){
@@ -105,7 +105,13 @@ function getHTMLComments(items){
 //trae comentarios guardados en el localSorage - DESIAFIATE 3
 function getNewComments(){
     let newData = localStorage.getItem('newComments');
-    commentsArry = JSON.parse(newData);
+    
+    allUserComments = JSON.parse(newData);
+    allUserComments.forEach(element => {
+        if (element.productID == localStorage.getItem('productID')){
+            visibleCommentsArry.push(element)
+        }
+    });
 }
 
 //muestra la hora al ejecutarse - DESIAFIATE 3
@@ -138,7 +144,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     //si hay comentarios guardados, los trae - DESIAFIATE 3
     if (localStorage.getItem('newComments')){
         getNewComments();
-        commentCont.innerHTML += getHTMLComments(commentsArry);
+        commentCont.innerHTML += getHTMLComments(visibleCommentsArry);
     }
     
     //guarda tus comentarios en el localStorage
@@ -147,10 +153,10 @@ document.addEventListener('DOMContentLoaded',async ()=>{
             dateTime: getHour(),
             user: localStorage.getItem('userEmail'),
             score: inputScore.value,
-            description: inputComment.value
+            description: inputComment.value,
+            productID: localStorage.getItem('productID')
         }
-        commentsArry.push(newComments);
-        localStorage.setItem('newComments',JSON.stringify(commentsArry));
-        console.log(commentsArry);
+        allUserComments.push(newComments); //array general con todos los comments
+        localStorage.setItem('newComments',JSON.stringify(allUserComments));
     })
 });
