@@ -44,14 +44,27 @@ let getJSONData = function(url){
 document.addEventListener('DOMContentLoaded', ()=>{
   const userNameNav = document.getElementById('userName');
   const getKeyName = localStorage.getItem('userEmail');
+  const signOff = document.getElementById('signOff')
 
   if (userNameNav !== null && getKeyName !== null){ // condicional para evitar problemas.
-      userNameNav.innerHTML = `<a class="nav-link" href="my-profile.html">${getKeyName}</a>`;
+      userNameNav.innerHTML = `<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      ${getKeyName}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="userName">
+        <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+        <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+        <li><a class="dropdown-item" onclick="signOff()">Cerrar sesión</a></li>
+      </ul>`;
   }
 })
 
 //selecciona producto y guarda su id
 function setProductID(id) {
-  localStorage.setItem("productID", id);
-  window.location = "product-info.html";
+  localStorage.setItem('productID', id);
+  window.location = 'product-info.html';
+}
+
+function signOff(){
+  localStorage.removeItem('userEmail');
+  window.location = 'index.html';
 }

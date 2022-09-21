@@ -31,7 +31,8 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li class="nav-item" id="userName">
+          <li class="nav-item dropdown" id="userName"> <!-- Username-->
+            <a class="nav-link" href="index.html">Abrir sesión</a>
           </li>
         </ul>
       </div>
@@ -42,31 +43,33 @@
     </div>
     <div class="container d-flex">
       <div class="row g-0">
-        <div class="col-md-6" id="comments-container">
-          <h4 class="card-title">Comentarios:</h3>
+        <div class="col-md-6 g-3">
+          <div id="comments-container">
+            <h4 class="card-title">Comentarios:</h3>
+          </div>
+          <div class="container" id="form">
+            <form>
+              <h4>Comentar</h4>
+              <div class="mb-3">
+                  <label for="setComment" class="form-label">Tu opinión: </label>
+                  <textarea type="textarea" class="form-control" id="setComment"></textarea>
+              </div>
+              <select id="score" class="form-select">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+              </select>
+              <br>
+              <a class="btn btn-primary" id="sendComment">Enviar</a>
+            </form>
+          </div>
         </div>
-        <div class="col-md-6" id="additional-content">
+        <div class="col-md-6 g-3" id="additional-content">
           <h4 class="card-title">Productos relacionados: </h4>
         </div>
       </div>
-    </div>
-    <div class="container" id="form">
-      <form style="width: 30rem;">
-        <h4>Comentar</h4>
-        <div class="mb-3">
-            <label for="setComment" class="form-label">Tu opinión: </label>
-            <textarea type="textarea" class="form-control" id="setComment"></textarea>
-        </div>
-        <select id="score" class="form-select">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-        <br>
-        <a class="btn btn-primary" id="sendComment">Enviar</a>
-    </form>
     </div>
   </main>
   <footer class="text-muted">
