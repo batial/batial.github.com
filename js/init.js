@@ -46,7 +46,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const getKeyName = localStorage.getItem('userEmail');
   const signOff = document.getElementById('signOff')
 
-  if (userNameNav !== null && getKeyName !== null){ // condicional para evitar problemas.
+  //si el user no es vacío, imprime el user con sus funcionalidades
+  if (userNameNav !== null && getKeyName !== null){
       userNameNav.innerHTML = `<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       ${getKeyName}
       </button>
