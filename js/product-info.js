@@ -140,6 +140,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     infoContainer.innerHTML = getHTMLInfo(DATAinfo.data);
     commentCont.innerHTML += getHTMLComments(DATAcomments.data);
     additionalCont.innerHTML += getRelatedProdcuts(DATAinfo.data);
+    console.log(DATAcomments);
 
     //si hay comentarios guardados, los trae - DESIAFIATE 3
     if (localStorage.getItem('newComments')){

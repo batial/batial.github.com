@@ -38,10 +38,31 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+      <!-- Carrito -->
+      <h3 class="d-flex justify-content-center">Carrito de compras</h3>
+      <h4>Articulos a comprar:</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Costo</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody id="cartItems">
+          <tr><!-- estructura item -->
+            <th scope="row"><img src="img/car1.jpg" width="50rem" alt=""></th>
+            <td>Name</td>
+            <td>Cost</td>
+            <td><input type="number" value="1" min="1" max="100"></td>
+            <td>varsubtotal</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
   </main>
   <footer class="text-muted">
     <div class="container">
