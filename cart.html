@@ -61,7 +61,26 @@
           </tr>
         </tbody>
       </table>
+      <form>
+        <h5>Tipo de envío</h5>
+        <div class="row mb-3">
+          <label for="premium"><input type="radio" id="premium" name="shippingType"> Premium 2 a 5 días (15%)</label>
+          <label for="express"><input type="radio" id="express" name="shippingType"> Express 5 a 8 días (7%)</label>
+          <label for="standard"><input type="radio" id="standard" name="shippingType" checked> Standard 12 a 15 días (5%)</label>
+        </div>
+        <h5>Dirección de envío</h5>
+        <div class="row">
+          <label class="form-label col">Calle<input type="text" class="form-control" required></label>
+          <label class="form-label col">Número<input type="number" class="form-control" min="0" max="9999" required></label>
+        </div>
+        <div class="row mb-3">
+          <label class="form-label col">Esquina<input type="text" class="form-control"></label>
+          <label class="form-label col-md">Referencias adicionales (opcional)<textarea type="text" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Continuar</button>
+      </form>
     </div>
+    
 
   </main>
   <footer class="text-muted">
