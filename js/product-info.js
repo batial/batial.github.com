@@ -1,5 +1,7 @@
 var visibleCommentsArry = []; //array con comentarios con igualID
 var allUserComments = []; //array con comentarios de todos los productos
+var DATAinfo = {};//datos del producto en global
+var localCart = [];//items en el carrito local
 
 //escructura general del producto
 function getHTMLInfo(product){
@@ -39,7 +41,7 @@ function getHTMLInfo(product){
                     <h3 class="card-text">Descripción:</h3>
                     <h4 class="card-text">${product.description}</h4> <br>
                     <h4 class="card-text text-muted">${product.soldCount} vendidos</h4> <br>
-                    <a href="https://www.youtube.com/watch?v=DLzxrzFCyOs&ab_channel=AllKindsOfStuff" class="btn btn-primary">Comprar</a>
+                    <h4 class="btn btn-primary" onclick="joinToLocalCart()">Comprar</h4>
                 </div>
             </div>
         </div>
@@ -126,6 +128,26 @@ function getHour(){
     return `${year}-${mont}-${day} ${hour}:${min}:${sec}`;
 }
 
+function joinToLocalCart(){
+    let product = DATAinfo.data;
+    
+    let itemData = {
+        count: 1,
+        currency: product.currency,
+        id: product.id,
+        image: product.images[0],
+        name: product.name,
+        unitCost: product.cost
+    }
+    console.log(itemData);
+    localCart.push(itemData);
+    let allItems = JSON.stringify(localCart);
+    localStorage.setItem('localCart', allItems);
+
+}
+    
+
+
 document.addEventListener('DOMContentLoaded',async ()=>{
     const infoContainer = document.getElementById('prod-info-cont');
     const submitComment = document.getElementById('sendComment');
@@ -135,17 +157,27 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     const commentCont = document.getElementById('comments-container');
 
     let productID = localStorage.getItem('productID');
-    const DATAinfo = await getJSONData(PRODUCT_INFO_URL+productID+EXT_TYPE);
+    DATAinfo = await getJSONData(PRODUCT_INFO_URL+productID+EXT_TYPE);
     const DATAcomments = await getJSONData(PRODUCT_INFO_COMMENTS_URL+productID+EXT_TYPE);
     infoContainer.innerHTML = getHTMLInfo(DATAinfo.data);
     commentCont.innerHTML += getHTMLComments(DATAcomments.data);
     additionalCont.innerHTML += getRelatedProdcuts(DATAinfo.data);
-    console.log(DATAcomments);
+    console.log(DATAinfo.data);
 
     //si hay comentarios guardados, los trae - DESIAFIATE 3
     if (localStorage.getItem('newComments')){
         getNewComments();
         commentCont.innerHTML += getHTMLComments(visibleCommentsArry);
+    }
+
+    //si hay items en el Carrito local, los trae - DESAFIATE 5
+    if (localStorage.getItem('localCart')){
+        let dataObj = JSON.parse(localStorage.getItem('localCart'));
+        dataObj.forEach(element => {
+            localCart.push(element);
+        });
+        localCart.sort()
+        console.log(localCart);
     }
     
     //guarda tus comentarios en el localStorage
