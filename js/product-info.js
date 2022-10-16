@@ -132,20 +132,18 @@ function joinToLocalCart(){
     let product = DATAinfo.data;
     
     let itemData = {
+        id: product.id,
+        name: product.name,
         count: 1,
         currency: product.currency,
-        id: product.id,
         image: product.images[0],
-        name: product.name,
         unitCost: product.cost
     }
-    console.log(itemData);
     localCart.push(itemData);
-    let allItems = JSON.stringify(localCart);
-    localStorage.setItem('localCart', allItems);
 
+    let carrito = JSON.stringify(localCart);
+    localStorage.setItem('localCart', carrito);
 }
-    
 
 
 document.addEventListener('DOMContentLoaded',async ()=>{
@@ -162,7 +160,6 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     infoContainer.innerHTML = getHTMLInfo(DATAinfo.data);
     commentCont.innerHTML += getHTMLComments(DATAcomments.data);
     additionalCont.innerHTML += getRelatedProdcuts(DATAinfo.data);
-    console.log(DATAinfo.data);
 
     //si hay comentarios guardados, los trae - DESIAFIATE 3
     if (localStorage.getItem('newComments')){
@@ -173,11 +170,11 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     //si hay items en el Carrito local, los trae - DESAFIATE 5
     if (localStorage.getItem('localCart')){
         let dataObj = JSON.parse(localStorage.getItem('localCart'));
+        let objList = []
         dataObj.forEach(element => {
-            localCart.push(element);
+            objList.push(element);
         });
-        localCart.sort()
-        console.log(localCart);
+        localCart = objList;
     }
     
     //guarda tus comentarios en el localStorage

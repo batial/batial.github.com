@@ -69,3 +69,31 @@ function signOff(){
   localStorage.removeItem('userEmail');
   window.location = 'index.html';
 }
+
+// Ordena los productos y los junta - DESAFIATE - 5
+function sortAndfilterItems(item){
+  item.sort((a,b)=>{
+      if (a.id<b.id){
+          return -1;
+      }
+      if (a.id>b.id){
+          return 1;
+      }
+      return 0;
+  })
+  let objFiltrados = []
+
+  for (let i = 0; i < item.length; i++) {
+    if( JSON.stringify(item[i]) == JSON.stringify(item[i-1])){
+        objFiltrados.pop()
+        let data = {
+            ...item[i],
+            count : item[i].count += 1
+        }
+        objFiltrados.push(data);
+    } else {
+        objFiltrados.push(item[i])
+    }
+  }
+  return objFiltrados;
+}
