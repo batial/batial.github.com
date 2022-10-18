@@ -64,9 +64,9 @@
       <form>
         <h5>Tipo de envío</h5>
         <div class="row mb-3">
-          <label for="premium"><input type="radio" id="premium" name="shippingType"> Premium 2 a 5 días (15%)</label>
-          <label for="express"><input type="radio" id="express" name="shippingType"> Express 5 a 8 días (7%)</label>
-          <label for="standard"><input type="radio" id="standard" name="shippingType" checked> Standard 12 a 15 días (5%)</label>
+          <label for="premium"><input type="radio" value="15" id="premium" name="sendingType"> Premium 2 a 5 días (15%)</label>
+          <label for="express"><input type="radio" value="7" id="express" name="sendingType"> Express 5 a 8 días (7%)</label>
+          <label for="standard"><input type="radio" value="5" id="standard" name="sendingType" checked> Standard 12 a 15 días (5%)</label>
         </div>
         <h5>Dirección de envío</h5>
         <div class="row">
@@ -77,10 +77,46 @@
           <label class="form-label col">Esquina<input type="text" class="form-control"></label>
           <label class="form-label col-md">Referencias adicionales (opcional)<textarea type="text" class="form-control"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Continuar</button>
       </form>
+      <hr>
+      <h5 class="pt-3">Costos</h5>
+      <div class="row text-muted">
+        <div class="card pt-3">
+          <div class="d-flex justify-content-between g-0">
+            <div>
+              <h6>Subtotal</h6>
+              <p>Costo unitario del producto por cantidad.</p>
+            </div>
+            <div>
+              <p id="sub-total">Precio</p>
+            </div>
+          </div>
+        </div>
+        <div class="card pt-3">
+          <div class="d-flex justify-content-between g-0">
+            <div>
+              <h6>Costo de envío</h6>
+              <p>Según el costo de envío.</p>
+            </div>
+            <div>
+              <p id="sending">Precio</p>
+            </div>
+          </div>
+        </div>
+        <div class="card pt-3">
+          <div class="d-flex justify-content-between g-0">
+            <div>
+              <h6>Total ($)</h6>
+              <p>Según el costo de envío.</p>
+            </div>
+            <div>
+              <p><b id="total">Precio $$$$</b></p>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success">Continuar</button>
+      </div>
     </div>
-    
 
   </main>
   <footer class="text-muted">
