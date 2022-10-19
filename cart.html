@@ -63,7 +63,7 @@
       </table>
       <form>
         <h5>Tipo de envío</h5>
-        <div class="row mb-3">
+        <div id="sendingType" class="row mb-3">
           <label for="premium"><input type="radio" value="15" id="premium" name="sendingType"> Premium 2 a 5 días (15%)</label>
           <label for="express"><input type="radio" value="7" id="express" name="sendingType"> Express 5 a 8 días (7%)</label>
           <label for="standard"><input type="radio" value="5" id="standard" name="sendingType" checked> Standard 12 a 15 días (5%)</label>
@@ -88,7 +88,7 @@
               <p>Costo unitario del producto por cantidad.</p>
             </div>
             <div>
-              <p id="sub-total">Precio</p>
+              <p>USD <span id="sub-total"> 0</span> </p>
             </div>
           </div>
         </div>
@@ -99,7 +99,7 @@
               <p>Según el costo de envío.</p>
             </div>
             <div>
-              <p id="sending">Precio</p>
+              <p> USD <span id="sending"> 0</span></p>
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@
               <p>Según el costo de envío.</p>
             </div>
             <div>
-              <p><b id="total">Precio $$$$</b></p>
+              <p><b>USD </b><b id="total">0</b></p>
             </div>
           </div>
         </div>

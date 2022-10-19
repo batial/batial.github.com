@@ -30,6 +30,8 @@ function getSubTotal(unitCost,id){
     let multiplo = document.getElementById('cantN'+id).value;
     let subtotal = unitCost * multiplo;
     document.getElementById('itemN'+id).innerHTML = subtotal;
+    document.getElementById('sub-total').innerHTML = getFinishSubTotal(localCart);
+    document.getElementById('total').innerHTML = getTotal();
 }
 
 function getFinishSubTotal(arry){
@@ -38,12 +40,19 @@ function getFinishSubTotal(arry){
         let cost = document.getElementById('itemN'+i).textContent;
         addSubtotal += parseInt(cost);
     }
-    return '$'+ addSubtotal;
+    return addSubtotal;
 }
 
 function getSendingPrice(){
     let selectedOption = document.querySelector('input[name="sendingType"]:checked').value;
-    console.log(selectedOption);
+    let result = (parseInt(document.getElementById('sub-total').textContent) * selectedOption) / 100;
+    return Math.round(result);
+}
+
+function getTotal(){
+    let subtotal = parseInt(document.getElementById('sub-total').textContent);
+    let sendingPrice = parseInt(document.getElementById('sending').textContent);
+    return subtotal+sendingPrice;
 }
 
 document.addEventListener('DOMContentLoaded',async ()=>{
@@ -54,6 +63,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     const subtotal = document.getElementById('sub-total');
     const sending = document.getElementById('sending');
     const total = document.getElementById('total');
+    const selectSending = document.getElementById('sendingType')
 
     //si existen productos en el carrito local, los pushea al array para imprimirlos - desafiate 5
     if(localStorage.getItem('localCart')){
@@ -65,7 +75,12 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     itemsContainer.innerHTML = getCartProducts(localCart);
 
     //Obtener los precios
-    subtotal.innerHTML = (getFinishSubTotal(localCart));
-    sending.innerHTML = getSendingPrice()
-    //sending.innerHTML = 
+    subtotal.innerHTML = getFinishSubTotal(localCart);
+    sending.innerHTML = getSendingPrice();
+    total.innerHTML = getTotal();
+
+    selectSending.addEventListener('click',()=>{
+        sending.innerHTML = getSendingPrice();
+        total.innerHTML = getTotal();
+    })
 })
