@@ -59,11 +59,23 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     const itemsContainer = document.getElementById('cartItems');
     const cartData = await getJSONData(CART_INFO_URL + userID + EXT_TYPE);
     localCart = cartData.data.articles;
-
+    
     const subtotal = document.getElementById('sub-total');
     const sending = document.getElementById('sending');
     const total = document.getElementById('total');
-    const selectSending = document.getElementById('sendingType')
+    const selectSending = document.getElementById('sendingType');
+
+    const viewPaymentMethod = document.getElementById('viewPaymentMethod');
+    const paymentMethod = document.getElementById('paymentMethod');
+    const typeSaved = document.getElementById('typeSaved');
+
+    const creditCard = document.getElementById('creditCard');
+    const accountNumb = document.getElementById('accountNumb');
+    const wireTransf = document.getElementById('wireTransf');
+    const cardId = document.getElementById('cardId');
+    const cardSec = document.getElementById('cardSec');
+    const cardExpir = document.getElementById('cardExpir');
+
 
     //si existen productos en el carrito local, los pushea al array para imprimirlos - desafiate 5
     if(localStorage.getItem('localCart')){
@@ -83,4 +95,42 @@ document.addEventListener('DOMContentLoaded',async ()=>{
         sending.innerHTML = getSendingPrice();
         total.innerHTML = getTotal();
     })
+
+    creditCard.addEventListener('click',()=>{
+        accountNumb.disabled = true;
+        cardId.disabled = false;
+        cardSec.disabled = false;
+        cardExpir.disabled = false;
+    })
+
+    wireTransf.addEventListener('click',()=>{
+        cardId.disabled = true;
+        cardSec.disabled = true;
+        cardExpir.disabled = true;
+        accountNumb.disabled = false;
+        accountNumb.required = true;
+    })
+
+    typeSaved.addEventListener('click',()=>{
+        const methodSelected = document.querySelector('input[name="paymentMethod"]:checked').value;
+        if (methodSelected == 'Tarjeta de crédito') {
+            let paymentData = {
+                cardNumber : cardId.value,
+                securityCode : cardSec.value,
+                expiration : cardExpir.value
+            }
+            console.log(paymentData);
+        }
+        
+        if (methodSelected == 'Transferencia bancaria'){
+            let paymentData = {
+                accountNumber : accountNumb.value
+            }
+            console.log(paymentData);
+        }
+        viewPaymentMethod.innerHTML = methodSelected
+    })
+    
+
 })
+

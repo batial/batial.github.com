@@ -74,48 +74,93 @@
           <label class="form-label col">Número<input type="number" class="form-control" min="0" max="9999" required></label>
         </div>
         <div class="row mb-3">
-          <label class="form-label col">Esquina<input type="text" class="form-control"></label>
+          <label class="form-label col">Esquina<input type="text" class="form-control" required></label>
           <label class="form-label col-md">Referencias adicionales (opcional)<textarea type="text" class="form-control"></textarea>
         </div>
+        <hr>
+        <h5 class="pt-3">Costos</h5>
+        <div class="row text-muted">
+          <div class="card pt-3">
+            <div class="d-flex justify-content-between g-0">
+              <div>
+                <h6>Subtotal</h6>
+                <p>Costo unitario del producto por cantidad.</p>
+              </div>
+              <div>
+                <p>USD <span id="sub-total"> 0</span> </p>
+              </div>
+            </div>
+          </div>
+          <div class="card pt-3">
+            <div class="d-flex justify-content-between g-0">
+              <div>
+                <h6>Costo de envío</h6>
+                <p>Según el costo de envío.</p>
+              </div>
+              <div>
+                <p> USD <span id="sending"> 0</span></p>
+              </div>
+            </div>
+          </div>
+          <div class="card pt-3">
+            <div class="d-flex justify-content-between g-0">
+              <div>
+                <h6>Total ($)</h6>
+                <p>Según el costo de envío.</p>
+              </div>
+              <div>
+                <p><b>USD </b><b id="total">0</b></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          
+          <hr>
+          <h5>Forma de pago</h5>
+          <div>
+            <span class="text-muted" id="viewPaymentMethod">No seleccionado.</span>
+            <a class="btn pb-2 primary" data-bs-toggle="modal" data-bs-target="#modal" id="selectTypePayment">Seleccionar</a>
+          </div>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content" id="paymentMethod">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalLabel">Forma de pago</h5>
+                </div>
+                <div class="modal-body"> <!-- formulario de pago-->
+                  <label for="creditCard"><input type="radio" name="paymentMethod" id="creditCard" value="Tarjeta de crédito"> Tarjeta de crédito</label>
+                  <div class="row">
+                    <div class="col-8">
+                      <label for="cardId">Número de tarjeta</label>
+                      <input class="form-control" type="number" min="1" id="cardId" required>
+                    </div>
+                    <div class="col-4">
+                      <label for="cardSec">Código de seg.</label>
+                      <input class="form-control" type="number" min="1" max="999" id="cardSec" required> 
+                    </div>
+                  </div>
+                  <div>
+                    <label for="cardExpir">Vencimiento (MM/AA)<input class="form-control" type="number" id="cardExpir" required></label>
+                  </div>
+                  <hr>
+                  <label for="wireTransf"><input type="radio" value="Transferencia bancaria" name="paymentMethod" id="wireTransf"> Transferencia bancaria</label>
+                  <div>
+                    <label for="accountNumb">Numero de cuenta<input class="form-control" type="number" id="accountNumb" required></label>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="typeSaved">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-success">Finalizar compra</button>
       </form>
-      <hr>
-      <h5 class="pt-3">Costos</h5>
-      <div class="row text-muted">
-        <div class="card pt-3">
-          <div class="d-flex justify-content-between g-0">
-            <div>
-              <h6>Subtotal</h6>
-              <p>Costo unitario del producto por cantidad.</p>
-            </div>
-            <div>
-              <p>USD <span id="sub-total"> 0</span> </p>
-            </div>
-          </div>
-        </div>
-        <div class="card pt-3">
-          <div class="d-flex justify-content-between g-0">
-            <div>
-              <h6>Costo de envío</h6>
-              <p>Según el costo de envío.</p>
-            </div>
-            <div>
-              <p> USD <span id="sending"> 0</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="card pt-3">
-          <div class="d-flex justify-content-between g-0">
-            <div>
-              <h6>Total ($)</h6>
-              <p>Según el costo de envío.</p>
-            </div>
-            <div>
-              <p><b>USD </b><b id="total">0</b></p>
-            </div>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-success">Continuar</button>
-      </div>
     </div>
 
   </main>

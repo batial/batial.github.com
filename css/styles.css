@@ -193,3 +193,8 @@ a.custom-card:hover {
 .visible {
   display: none;
 }
+
+#selectTypePayment{
+  color: #0087F7;
+  text-decoration: underline;
+}
