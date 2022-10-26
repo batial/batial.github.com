@@ -130,7 +130,6 @@ function getHour(){
 
 function joinToLocalCart(){
     let product = DATAinfo.data;
-    
     let itemData = {
         id: product.id,
         name: product.name,
@@ -139,9 +138,27 @@ function joinToLocalCart(){
         image: product.images[0],
         unitCost: product.cost
     }
-    localCart.push(itemData);
-
-    let carrito = JSON.stringify(localCart);
+    let currentCart = localCart;
+    if (localCart[0] != undefined){
+        console.log('Funcion en progreso');
+        localCart.find(p => {
+            if(p.id == itemData.id){
+                console.log('coincide');
+                console.log(p);
+                let index = localCart.findIndex(p => p.id == itemData.id);
+                itemData.count += p.count;
+                currentCart[index] = itemData;
+            }
+        })
+        if(localCart.filter(p => p.id == itemData.id).length == 0){
+            console.log('NUEVO ITEM');
+            localCart.push(currentCart);
+        }
+    }
+    if (currentCart[0] == undefined){
+        currentCart.push(itemData);
+    }
+    let carrito = JSON.stringify(currentCart);
     localStorage.setItem('localCart', carrito);
 }
 

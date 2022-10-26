@@ -71,7 +71,7 @@ function signOff(){
 }
 
 // Ordena los productos y los junta - DESAFIATE - 5
-function sortAndfilterItems(item){
+function filterItems(item){
   item.sort((a,b)=>{
       if (a.id<b.id){
           return -1;
@@ -97,3 +97,17 @@ function sortAndfilterItems(item){
   }
   return objFiltrados;
 }
+
+/*function filterItems(arry){
+    arry.filter( p => {
+        if (p.id == arry.forEach(element => {return element.id})){
+            let data = {
+                ...p,
+                count : p.count += 1
+            }
+            itemCart.push(data)
+            console.log('if');
+        } else {itemCart.push(p);console.log(arry);}
+    })
+    arry.forEach(element => console.log(element.id))
+}*/

@@ -44,7 +44,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col"></th>
             <th scope="col">Nombre</th>
             <th scope="col">Costo</th>
             <th scope="col">Cantidad</th>
@@ -61,7 +61,7 @@
           </tr>
         </tbody>
       </table>
-      <form>
+      <form class="needs-validation" novalidate>
         <h5>Tipo de envío</h5>
         <div id="sendingType" class="row mb-3">
           <label for="premium"><input type="radio" value="15" id="premium" name="sendingType"> Premium 2 a 5 días (15%)</label>
@@ -70,12 +70,30 @@
         </div>
         <h5>Dirección de envío</h5>
         <div class="row">
-          <label class="form-label col">Calle<input type="text" class="form-control" required></label>
-          <label class="form-label col">Número<input type="number" class="form-control" min="0" max="9999" required></label>
+          <div class="col">
+            <label class="form-label" for="street">Calle</label>
+            <input type="text" class="form-control" id="street" required>
+            <div class="invalid-feedback">
+              Por favor, ingresa una calle válida.
+            </div>
+          </div>
+          <div class="col">
+            <label class="form-label col" for="streetNumb">Número</label>
+            <input type="number" id="streetNumb" class="form-control" min="0" maxlength="4" required>
+            <div class="invalid-feedback">
+              Por favor, ingresa un numero correcto.
+            </div>
+          </div>
         </div>
         <div class="row mb-3">
-          <label class="form-label col">Esquina<input type="text" class="form-control" required></label>
-          <label class="form-label col-md">Referencias adicionales (opcional)<textarea type="text" class="form-control"></textarea>
+          <div class="col">
+            <label class="form-label col" for="corner">Esquina</label>
+            <input type="text" class="form-control" id="corner" required>
+          </div>
+          <div class="col">
+            <label class="form-label" for="addInfo">Referencias adicionales (opcional)
+            <textarea type="text" class="form-control" id="addInfo"></textarea>
+          </div>
         </div>
         <hr>
         <h5 class="pt-3">Costos</h5>
@@ -115,51 +133,18 @@
           </div>
         </div>
         <div>
-          
           <hr>
           <h5>Forma de pago</h5>
           <div>
-            <span class="text-muted" id="viewPaymentMethod">No seleccionado.</span>
-            <a class="btn pb-2 primary" data-bs-toggle="modal" data-bs-target="#modal" id="selectTypePayment">Seleccionar</a>
-          </div>
-          
-          <!-- Modal -->
-          <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content" id="paymentMethod">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="modalLabel">Forma de pago</h5>
-                </div>
-                <div class="modal-body"> <!-- formulario de pago-->
-                  <label for="creditCard"><input type="radio" name="paymentMethod" id="creditCard" value="Tarjeta de crédito"> Tarjeta de crédito</label>
-                  <div class="row">
-                    <div class="col-8">
-                      <label for="cardId">Número de tarjeta</label>
-                      <input class="form-control" type="number" min="1" id="cardId" required>
-                    </div>
-                    <div class="col-4">
-                      <label for="cardSec">Código de seg.</label>
-                      <input class="form-control" type="number" min="1" max="999" id="cardSec" required> 
-                    </div>
-                  </div>
-                  <div>
-                    <label for="cardExpir">Vencimiento (MM/AA)<input class="form-control" type="number" id="cardExpir" required></label>
-                  </div>
-                  <hr>
-                  <label for="wireTransf"><input type="radio" value="Transferencia bancaria" name="paymentMethod" id="wireTransf"> Transferencia bancaria</label>
-                  <div>
-                    <label for="accountNumb">Numero de cuenta<input class="form-control" type="number" id="accountNumb" required></label>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="typeSaved">Guardar</button>
-                </div>
-              </div>
+            <input type="text" class="text-muted" id="viewPaymentMethod" style="border:none"required onkeypress="return false;" autocomplete="off">
+            <a class="btn pb-2 primary" data-bs-toggle="modal" data-bs-target="#modal" id="selectTypePayment">Seleccionar forma de pago</a>
+            <div class="invalid-feedback">
+              Por favor, completa correctamente la forma de pago.
             </div>
           </div>
         </div>
         <br>
-        <button type="submit" class="btn btn-success">Finalizar compra</button>
+        <button type="submit" id="checkout" class="btn btn-success">Finalizar compra</button>
       </form>
     </div>
 
@@ -174,6 +159,57 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" id="paymentMethod">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Forma de pago</h5>
+        </div>
+        <div class="modal-body"> <!-- formulario de pago-->
+          <input type="radio" class="form-check-input" name="paymentMethod" id="creditCard" value="Tarjeta de crédito" required>
+          <label for="creditCard">Tarjeta de crédito</label>
+          <div class="invalid-feedback">
+            Por favor, selecciona un método de pago.
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <label for="cardId">Número de tarjeta</label>
+              <input class="form-control" type="number" min="1" id="cardId" required>
+            </div>
+            <div class="col-4">
+              <label for="cardSec">Código de seg.</label>
+              <input class="form-control" type="number" min="1" max="999" id="cardSec" required> 
+            </div>
+          </div>
+          <div>
+            <label for="cardExpir">Vencimiento (MM/AA)</label>
+            <input class="form-control" type="number" id="cardExpir" required>
+          </div>
+          <hr>
+          <input type="radio" class="form-check-input" value="Transferencia bancaria" name="paymentMethod" id="wireTransf" required> 
+          <label for="wireTransf"> Transferencia bancaria</label>
+          <div class="invalid-feedback">
+            Por favor, selecciona un método de pago.
+          </div>
+          <div>
+            <label for="accountNumb">Numero de cuenta</label>
+            <input class="form-control" type="number" id="accountNumb" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="typeSaved">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-success d-flex" id="success" role="alert" style="visibility: hidden">
+    <h5>¡Has comprado con éxito!</h5>
+    <button class="btn" data-bs-dismiss="alert"><span>&times;</span></button>
+  </div>
+
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>

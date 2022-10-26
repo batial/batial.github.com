@@ -1,7 +1,5 @@
 const userID = 25801
 let itemCart = [];//array con items a mostrar en el carrito
-let localCart = [];
-let cartOrdened = [];
 
 function getCartProducts(data){
     let HTMLContentToAppend = '';
@@ -66,7 +64,6 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     const selectSending = document.getElementById('sendingType');
 
     const viewPaymentMethod = document.getElementById('viewPaymentMethod');
-    const paymentMethod = document.getElementById('paymentMethod');
     const typeSaved = document.getElementById('typeSaved');
 
     const creditCard = document.getElementById('creditCard');
@@ -75,14 +72,13 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     const cardId = document.getElementById('cardId');
     const cardSec = document.getElementById('cardSec');
     const cardExpir = document.getElementById('cardExpir');
-
+    const checkout = document.getElementById('checkout');
+    const selectTypePayment = document.getElementById('selectTypePayment');
 
     //si existen productos en el carrito local, los pushea al array para imprimirlos - desafiate 5
     if(localStorage.getItem('localCart')){
         let ItemsObj = JSON.parse(localStorage.getItem('localCart'))
-        ItemsObj.forEach(element => {
-            localCart.push(element);
-        });
+        ItemsObj.forEach(element => localCart.push(element));
     }
     itemsContainer.innerHTML = getCartProducts(localCart);
 
@@ -94,14 +90,14 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     selectSending.addEventListener('click',()=>{
         sending.innerHTML = getSendingPrice();
         total.innerHTML = getTotal();
-    })
+    });
 
     creditCard.addEventListener('click',()=>{
         accountNumb.disabled = true;
         cardId.disabled = false;
         cardSec.disabled = false;
         cardExpir.disabled = false;
-    })
+    });
 
     wireTransf.addEventListener('click',()=>{
         cardId.disabled = true;
@@ -109,28 +105,72 @@ document.addEventListener('DOMContentLoaded',async ()=>{
         cardExpir.disabled = true;
         accountNumb.disabled = false;
         accountNumb.required = true;
-    })
+    });
 
-    typeSaved.addEventListener('click',()=>{
-        const methodSelected = document.querySelector('input[name="paymentMethod"]:checked').value;
-        if (methodSelected == 'Tarjeta de crédito') {
-            let paymentData = {
-                cardNumber : cardId.value,
-                securityCode : cardSec.value,
-                expiration : cardExpir.value
-            }
-            console.log(paymentData);
+    function paymentValidation(imput){
+        if (imput.validity.valueMissing == true){
+            imput.classList.add('is-invalid');
+            selectTypePayment.classList.add('is-invalid');
+        } else {
+            imput.classList.remove('is-invalid');
         }
-        
-        if (methodSelected == 'Transferencia bancaria'){
-            let paymentData = {
-                accountNumber : accountNumb.value
-            }
-            console.log(paymentData);
+    } 
+    //validacion modal
+    typeSaved.addEventListener('click',(e)=>{
+        if ((creditCard.checked != true)&& (wireTransf.checked != true)){
+            creditCard.classList.add('is-invalid');
+            selectTypePayment.classList.add('is-invalid');
+        } else {
+            creditCard.classList.remove('is-invalid');
+            selectTypePayment.classList.remove('is-invalid');
         }
-        viewPaymentMethod.innerHTML = methodSelected
+        if (creditCard.checked){
+            paymentValidation(cardId);
+            paymentValidation(cardSec);
+            paymentValidation(cardExpir);
+            if (!cardId.validity.valueMissing && !cardSec.validity.valueMissing && !cardExpir.validity.valueMissing){
+                selectTypePayment.classList.remove('is-invalid');
+                let paymentData = {
+                    cardNumber : cardId.value,
+                    securityCode : cardSec.value,
+                    expiration : cardExpir.value
+                }
+                viewPaymentMethod.value = creditCard.value;
+                document.getElementById('selectTypePayment').innerHTML = 'Cambiar forma de pago.'
+                console.log(paymentData);
+            }
+            
+        }
+        if (wireTransf.checked){
+            paymentValidation(accountNumb);
+            if(!accountNumb.validity.valueMissing){
+                selectTypePayment.classList.remove('is-invalid');
+                let paymentData = {
+                    accountNumber : accountNumb.value
+                }
+                viewPaymentMethod.value = wireTransf.value;
+                document.getElementById('selectTypePayment').innerHTML = 'Cambiar forma de pago.'
+                console.log(paymentData);
+            }
+        }
     })
-    
-
 })
 
+//bootstrap validation
+var forms = document.querySelectorAll('.needs-validation')
+
+// Loop over them and prevent submission
+Array.prototype.slice.call(forms)
+.forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+    if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+    } else {
+        document.getElementById('success').style.visibility = "visible";
+        event.preventDefault()
+        event.stopPropagation()
+    }
+    form.classList.add('was-validated')
+    }, false)
+})
