@@ -2,6 +2,7 @@ var visibleCommentsArry = []; //array con comentarios con igualID
 var allUserComments = []; //array con comentarios de todos los productos
 var DATAinfo = {};//datos del producto en global
 var localCart = [];//items en el carrito local
+let currentCart = [];
 
 //escructura general del producto
 function getHTMLInfo(product){
@@ -138,7 +139,7 @@ function joinToLocalCart(){
         image: product.images[0],
         unitCost: product.cost
     }
-    let currentCart = localCart;
+    currentCart = localCart;
     if (localCart[0] != undefined){
         console.log('Funcion en progreso');
         localCart.find(p => {
@@ -152,10 +153,9 @@ function joinToLocalCart(){
         })
         if(localCart.filter(p => p.id == itemData.id).length == 0){
             console.log('NUEVO ITEM');
-            localCart.push(currentCart);
+            currentCart.push(itemData);
         }
-    }
-    if (currentCart[0] == undefined){
+    } else {
         currentCart.push(itemData);
     }
     let carrito = JSON.stringify(currentCart);

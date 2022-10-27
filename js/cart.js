@@ -1,5 +1,5 @@
 const userID = 25801
-let itemCart = [];//array con items a mostrar en el carrito
+let localCart; //array con items a mostrar en el carrito
 
 function getCartProducts(data){
     let HTMLContentToAppend = '';
@@ -20,7 +20,6 @@ function getCartProducts(data){
         `
         artCount++
     });
-
     return HTMLContentToAppend;
 }
 
@@ -138,8 +137,7 @@ document.addEventListener('DOMContentLoaded',async ()=>{
                 viewPaymentMethod.value = creditCard.value;
                 document.getElementById('selectTypePayment').innerHTML = 'Cambiar forma de pago.'
                 console.log(paymentData);
-            }
-            
+            } 
         }
         if (wireTransf.checked){
             paymentValidation(accountNumb);
