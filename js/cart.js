@@ -28,6 +28,7 @@ function getSubTotal(unitCost,id){
     let subtotal = unitCost * multiplo;
     document.getElementById('itemN'+id).innerHTML = subtotal;
     document.getElementById('sub-total').innerHTML = getFinishSubTotal(localCart);
+    document.getElementById('sending').innerHTML = getSendingPrice();
     document.getElementById('total').innerHTML = getTotal();
 }
 
