@@ -199,3 +199,8 @@ a.custom-card:hover {
   text-decoration: underline;
 }
 
+.perfil-form{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}

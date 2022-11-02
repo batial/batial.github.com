@@ -52,11 +52,52 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
-    </div>
+    <form class="container needs-validation" novalidate>
+      
+        <h3>Perfil</h3>
+        <div class="perfil-form">
+          <div>
+            <label for="pName">Nombre</label>
+            <input type="text" class="form-control"  id="pName" required>
+            <div class="invalid-feedback">
+              Ingresa un nombre correcto.
+            </div>
+          </div>
+          <div>
+            <label for="pSecName">Segundo nombre</label>
+            <input type="text" class="form-control pInput" id="pSecName">
+          </div>
+          <div>
+            <label for="pSurName">Apellido</label>
+            <input type="text" class="form-control pInput"  id="pSurName" required>
+            <div class="invalid-feedback">
+              Ingresa un apellido correcto.
+            </div>
+          </div>
+          <div>
+            <label for="pSecSurName">Segundo apellido</label>
+            <input type="text" class="form-control pInput"  id="pSecSurName">
+          </div>
+          <div>
+            <label for="pEmail">Email</label>
+            <input type="email" class="form-control pInput"  id="pEmail" required>
+            <div class="invalid-feedback">
+              Ingresa un Email correcto.
+            </div>
+          </div>
+          <div>
+            <label for="pPhone">Cargar foto</label>
+            <input type="number" class="form-control"  id="pPhoto">
+          </div>
+          <div>
+            <label for="pPhone">Teléfono de contacto</label>
+            <input type="number" class="form-control pInput"  id="pPhone">
+          </div>
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary" id="saveChanges">Guardar cambios</button>
+      
+    </form>
   </main>
   <footer class="text-muted">
     <div class="container">
