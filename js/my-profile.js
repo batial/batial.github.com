@@ -26,8 +26,33 @@ document.addEventListener('DOMContentLoaded',()=>{
         pPhone.value = profileJSONData.phone;
 
     }
+
+    function getBase64Image(img) {
+        return new Promise ((resolve)=>{
+            const reader = new FileReader();
+            reader.readAsDataURL(img);
+            reader.onloadend = ()=>{
+                resolve(reader.result.split(',')[1]);
+            }
+        })
+    }
+
+    //funcion para convertir una imagen en base64 (string)
+    async function changePhoto(myImg){
+        let imgData = await getBase64Image(myImg);
+        localStorage.setItem('imgData', imgData );
+    }
+    
+
+    if (localStorage.getItem('imgData')) {
+        var dataImage = localStorage.getItem('imgData');
+        bannerImg = document.getElementById('tableBanner');
+        bannerImg.src = "data:image/png;base64," + dataImage;
+    }
+    
+
     //validación de datos.
-    form.addEventListener('submit', function (event) {
+    form.addEventListener('submit', async (event)=>{
         if (!form.checkValidity()) {
         event.preventDefault()
         event.stopPropagation()
@@ -46,6 +71,13 @@ document.addEventListener('DOMContentLoaded',()=>{
         }
         localStorage.setItem('profileData', JSON.stringify(profileData));
         }
+
+        //si el imput CargarFoto captura una imagen entonces la procesa.
+        if (pPhoto.files[0]){
+            await changePhoto(pPhoto.files[0]);
+        }
+        
+        location.reload()
         form.classList.add('was-validated')
     }, false)
     

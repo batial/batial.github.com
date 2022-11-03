@@ -213,3 +213,16 @@ a.custom-card:hover {
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
+
+.required{
+  color: red;
+}
+
+#tableBanner{
+  width: 100px;
+  height: 100px;
+  border: 3px solid gray;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+}
