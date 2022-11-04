@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded',()=>{
     pEmail = document.getElementById('pEmail'),
     pPhoto = document.getElementById('pPhoto'),
     pPhone = document.getElementById('pPhone'),
-    btnSave = document.getElementById('saveChanges'),
     form = document.querySelector('.needs-validation');
     
     //trae data del userEmail, sino redirecciona al inicio de sesión.
@@ -37,13 +36,13 @@ document.addEventListener('DOMContentLoaded',()=>{
         })
     }
 
-    //funcion para convertir una imagen en base64 (string)
+    //funcion para convertir una imagen en base64 (string) - desafiate 7
     async function changePhoto(myImg){
         let imgData = await getBase64Image(myImg);
         localStorage.setItem('imgData', imgData );
     }
     
-
+    //si existe una imagen en el LS, la muestra - desafiate 7
     if (localStorage.getItem('imgData')) {
         var dataImage = localStorage.getItem('imgData');
         bannerImg = document.getElementById('tableBanner');
@@ -72,7 +71,7 @@ document.addEventListener('DOMContentLoaded',()=>{
         localStorage.setItem('profileData', JSON.stringify(profileData));
         }
 
-        //si el imput CargarFoto captura una imagen entonces la procesa.
+        //si el imput CargarFoto captura una imagen entonces la procesa - desafiate 7
         if (pPhoto.files[0]){
             await changePhoto(pPhoto.files[0]);
         }

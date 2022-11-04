@@ -7,6 +7,7 @@
   <title>eMercado - Todo lo que busques está aquí</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
 </head>
@@ -49,16 +50,18 @@
             <th scope="col">Costo</th>
             <th scope="col">Cantidad</th>
             <th scope="col">Subtotal</th>
+            <th scope="col"></i></th>
           </tr>
         </thead>
         <tbody id="cartItems">
-          <tr><!-- estructura item -->
+          <!------------- Estructura del item -------------------->
+          <!-- <tr> 
             <th scope="row"><img src="img/car1.jpg" width="50rem" alt=""></th>
             <td>Name</td>
             <td>Cost</td>
             <td><input type="number" value="1" min="1" max="100"></td>
             <td>varsubtotal</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
       <form class="needs-validation" novalidate>
@@ -207,6 +210,14 @@
 
   <div class="alert alert-success d-flex" id="success" role="alert" style="visibility: hidden">
     <h5>¡Has comprado con éxito!</h5>
+    <button class="btn" data-bs-dismiss="alert"><span>&times;</span></button>
+  </div>
+
+  <div class="alert alert-danger d-flex justify-content-between" id="nullCart" role="alert" style="visibility: hidden">
+    <div>
+      <h5>Ups, parece que tu carrito está vacío.</h5>
+      <p>Intenta comprar un articulo primero...</p>
+    </div>
     <button class="btn" data-bs-dismiss="alert"><span>&times;</span></button>
   </div>
 
