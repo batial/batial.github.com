@@ -1,12 +1,23 @@
 const userID = 25801
 let localCart = []; //array con items a mostrar en el carrito
 
+//actualiza los costos.
+function itemsCostUpDate (){
+    document.getElementById('sub-total').innerHTML = getFinishSubTotal(localCart);
+    document.getElementById('sending').innerHTML = getSendingPrice();
+    document.getElementById('total').innerHTML = getTotal();
+}
+
 function eraseItem(cartItemId, itemId){
     let itemToErase = document.getElementById('itemN'+cartItemId);
     itemToErase.innerHTML = '';
     let localStorageItems = JSON.parse(localStorage.getItem('localCart'))
     let notErasedItems = localStorageItems.filter(i => i.id !== itemId );
     localStorage.setItem('localCart', JSON.stringify(notErasedItems));
+    //actualiza los precios, ahora sin los items borrados.
+    localCart = notErasedItems;
+    document.getElementById('cartItems').innerHTML = getCartProducts(localCart);
+    itemsCostUpDate();
 }
 
 function getCartProducts(data){
@@ -36,16 +47,16 @@ function getSubTotal(unitCost,id){
     let multiplo = document.getElementById('cantN'+id).value;
     let subtotal = unitCost * multiplo;
     document.getElementById('costItemN'+id).innerHTML = subtotal;
-    document.getElementById('sub-total').innerHTML = getFinishSubTotal(localCart);
-    document.getElementById('sending').innerHTML = getSendingPrice();
-    document.getElementById('total').innerHTML = getTotal();
+    itemsCostUpDate();
 }
 
 function getFinishSubTotal(arry){
     let addSubtotal = 0;
     for (let i = 0; i < localCart.length; i++) {
-        let cost = document.getElementById('costItemN'+i).textContent;
-        addSubtotal += parseInt(cost);
+        if(document.getElementById('costItemN'+i).innerHTML !== ''){
+            let cost = document.getElementById('costItemN'+i).textContent;
+            addSubtotal += parseInt(cost);
+        }
     }
     return addSubtotal;
 }
@@ -62,6 +73,10 @@ function getTotal(){
     return subtotal+sendingPrice;
 }
 
+function showCartError(){
+    document.getElementById('nullCart').style.visibility = "visible";
+}
+
 document.addEventListener('DOMContentLoaded',async ()=>{
     const itemsContainer = document.getElementById('cartItems');
 
@@ -69,7 +84,6 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     /* const cartData = await getJSONData(CART_INFO_URL + userID + EXT_TYPE);
     localCart = cartData.data.articles; */
     
-    const subtotal = document.getElementById('sub-total');
     const sending = document.getElementById('sending');
     const total = document.getElementById('total');
     const selectSending = document.getElementById('sendingType');
@@ -86,18 +100,20 @@ document.addEventListener('DOMContentLoaded',async ()=>{
     const selectTypePayment = document.getElementById('selectTypePayment');
 
     //si existen productos en el carrito local, los pushea al array para imprimirlos - desafiate 5
-    if(localStorage.getItem('localCart').length> 3){
+    if (localStorage.getItem('localCart')){
         let ItemsObj = JSON.parse(localStorage.getItem('localCart'))
-        ItemsObj.forEach(element => localCart.push(element));
-        itemsContainer.innerHTML = getCartProducts(localCart);
+        if(ItemsObj.length > 0 ){
+            ItemsObj.forEach(element => localCart.push(element));
+            itemsContainer.innerHTML = getCartProducts(localCart);
+        }else {
+            showCartError();
+        }
     } else {
-        document.getElementById('nullCart').style.visibility = "visible";
+        showCartError();
     }
 
     //Obtener los precios
-    subtotal.innerHTML = getFinishSubTotal(localCart);
-    sending.innerHTML = getSendingPrice();
-    total.innerHTML = getTotal();
+    itemsCostUpDate();
 
     selectSending.addEventListener('click',()=>{
         sending.innerHTML = getSendingPrice();
