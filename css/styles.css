@@ -147,6 +147,24 @@ footer p {
   animation-delay: -0.15s;
 }
 
+.noVisible {
+  display: none;
+}
+
+.loginScreen{
+  background-color: #F8F9FA;
+}
+
+.footerScreen{
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+}
+
+main{
+  padding-bottom: 2rem;
+}
+
 @keyframes lds-ring {
   0% {
     transform: rotate(0deg);
