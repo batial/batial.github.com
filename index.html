@@ -24,15 +24,21 @@
     <div class="mb-3" >
       <div class="row g-0">
         <div class="col-md-5">
-          <form action="" name="formulario">
+          <form action="" name="formulario" class="needs-validation" novalidate>
             <h1>Inicio de sesión</h1>
             <div class="mb-3">
               <label for="email" class="form-label" name="email">Email</label>
-              <input type="email" class="form-control" id="email">
+              <input type="email" class="form-control" id="email" required>
+              <div class="invalid-feedback">
+                Ingrese un Email válido.
+              </div>
             </div>
             <div class="mb-3">
               <label for="pass" class="form-label" name="password">Contraseña</label>
-              <input type="password" class="form-control" id="pass">
+              <input type="password" class="form-control" id="pass" required>
+              <div class="invalid-feedback">
+                Ingresa una contraseña válida.
+              </div>
             </div>      
             <button id="ingresar" type="submit" class="btn btn-primary">Ingresar</button>
             <button id="googleBtn" class="btn btn-success"><i class="bi bi-google"></i></button>
