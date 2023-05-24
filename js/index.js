@@ -12,5 +12,5 @@ document.addEventListener("DOMContentLoaded",()=>{
             localStorage.setItem('userEmail', email.value);  
         }
         form.classList.add('was-validated');
-        }, false)
+        })
 });
